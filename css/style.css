@@ -1,0 +1,442 @@
+@import url(https://fonts.googleapis.com/css?family=Elsie:regular,900);
+@import url(https://fonts.googleapis.com/css?family=Risque:regular);
+
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+    background-color: #efd5d8;
+}
+
+.backi {
+    position: absolute;
+    top: 100PX;
+    width: 1510px;
+    z-index: -1px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.logo {
+
+}
+
+.logoimg {
+    position: static;
+    display: flex;
+    width: 100px;
+    height: 100px;
+}
+
+.logo h1{
+    position: absolute;
+    display: flex;
+    font-size: 40px;
+    left: 100px;
+    top: 30px;
+    font-family: 'Elsie';
+    color: #0a0114;
+}
+
+.navig {
+    position: absolute;
+    display: flex;
+    left: 600px;
+    top: 30px;
+    font-family: 'Elsie';
+    color: #130b1c;
+}
+
+.navig a{
+    font-size: 45px;
+    margin-right: 50px;
+}
+
+.step1 {
+    display: flex;
+    position: absolute;
+    height: 350px;
+    width: 350px;
+    left: 50px;
+    top: 150px;
+}
+
+.back11 {
+    border-radius: 20px;
+    box-shadow: 0px 5px 10px #190f23;
+}
+
+.poli {
+    display: flex;
+    position: absolute;
+    height: 560px;
+    top: -40px;
+    z-index: 1;
+    animation: levitation 11s ease-in-out infinite;
+}
+
+@keyframes levitation {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-18px) rotate(0.3deg);
+    }
+
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+}
+
+.text {
+    position: absolute;
+    width: 400px;
+    top: 170px;
+    left: 570px;
+    font-size: 40px;
+    font-family: 'Risque';
+    z-index: 1;
+}
+
+.text h3 {
+    position: absolute;
+    left: 30px;
+    top: 75px;
+    font-size: 27px;
+    color: #150c1eb5;
+    font-family: 'Risque';
+}
+
+
+@keyframes levitation1 {
+    0% {
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-9px) rotate(0.3deg);
+    }
+
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+}
+
+
+button a {
+    position: absolute;
+    left: 100px;
+    top: 150px;
+    font-size: 27px;
+    color: #130b1c;
+    background-color: #2b193db5;
+    border-radius: 20px;
+    padding: 10px;
+    padding-right: 40px;
+    padding-left: 40px;
+    animation: levitation1 3s ease-in-out infinite;
+    font-family: 'Risque';
+}
+
+
+/* =========================
+   АДАПТАЦИЯ ДЛЯ ТЕЛЕФОНОВ
+   ========================= */
+
+@media (max-width: 768px) {
+
+    body {
+        overflow-x: hidden;
+    }
+
+    /* Фоновая картинка */
+    .backi {
+        top: 80px;
+        width: 100%;
+        height: auto;
+        min-height: 100vh;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    /* Логотип */
+    .logoimg {
+        width: 70px;
+        height: 70px;
+    }
+
+    .logo h1 {
+        left: 75px;
+        top: 20px;
+        font-size: 32px;
+    }
+
+    /* Навигация */
+    .navig {
+        left: auto;
+        right: 15px;
+        top: 25px;
+    }
+
+    .navig a {
+        font-size: 20px;
+        margin-right: 15px;
+    }
+
+    .navig a:last-child {
+        margin-right: 0;
+    }
+
+    /* Основной блок */
+    .step1 {
+        width: 280px;
+        height: 280px;
+        left: 50%;
+        top: 130px;
+        transform: translateX(-50%);
+    }
+
+    .back11 {
+        width: 280px;
+        height: 280px;
+        object-fit: cover;
+    }
+
+    /* Собачка */
+    .poli {
+        height: 400px;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    /* Текст */
+    .text {
+        width: 90%;
+        left: 5%;
+        top: 440px;
+        text-align: center;
+        font-size: 30px;
+    }
+
+    .text h3 {
+        position: static;
+        margin-top: 10px;
+        font-size: 20px;
+    }
+
+    /* Кнопка */
+    button a {
+        position: static;
+        display: inline-block;
+        margin-top: 30px;
+        font-size: 22px;
+        padding: 8px 30px;
+    }
+}
+
+/* =========================
+   ОЧЕНЬ МАЛЕНЬКИЕ ТЕЛЕФОНЫ
+   ========================= */
+
+@media (max-width: 480px) {
+
+    .logoimg {
+        width: 55px;
+        height: 55px;
+    }
+
+    .logo h1 {
+        left: 60px;
+        top: 17px;
+        font-size: 27px;
+    }
+
+    .navig {
+        top: 75px;
+        left: 0;
+        right: 0;
+        justify-content: center;
+    }
+
+    .navig a {
+        font-size: 18px;
+        margin-right: 12px;
+    }
+
+    .step1 {
+        width: 240px;
+        height: 240px;
+        top: 155px;
+    }
+
+    .back11 {
+        width: 240px;
+        height: 240px;
+    }
+
+    .poli {
+        height: 340px;
+        top: -25px;
+    }
+
+    .text {
+        top: 420px;
+        font-size: 27px;
+    }
+
+    .text h3 {
+        font-size: 18px;
+    }
+
+    button a {
+        margin-top: 25px;
+        font-size: 20px;
+        padding: 8px 25px;
+    }
+}
+
+
+/* =========================
+   АДАПТАЦИЯ ДЛЯ БОЛЬШИХ ЭКРАНОВ
+   ========================= */
+
+@media (min-width: 1600px) {
+
+    .backi {
+        width: 100%;
+        height: auto;
+        min-height: 100vh;
+        object-fit: cover;
+    }
+
+    .logoimg {
+        width: 120px;
+        height: 120px;
+    }
+
+    .logo h1 {
+        left: 120px;
+        top: 35px;
+        font-size: 48px;
+    }
+
+    .navig {
+        left: 50%;
+        top: 35px;
+        transform: translateX(-50%);
+    }
+
+    .navig a {
+        font-size: 50px;
+        margin-right: 60px;
+    }
+
+    .step1 {
+        width: 450px;
+        height: 450px;
+        left: 5%;
+        top: 180px;
+    }
+
+    .back11 {
+        width: 450px;
+        height: 450px;
+        object-fit: cover;
+    }
+
+    .poli {
+        height: 700px;
+        top: -50px;
+    }
+
+    .text {
+        width: 500px;
+        top: 220px;
+        left: 42%;
+        font-size: 50px;
+    }
+
+    .text h3 {
+        left: 40px;
+        top: 90px;
+        font-size: 32px;
+    }
+
+    button a {
+        left: 130px;
+        top: 170px;
+        font-size: 30px;
+        padding: 12px 45px;
+    }
+}
+
+/* =========================
+   ОЧЕНЬ БОЛЬШИЕ ЭКРАНЫ
+   ========================= */
+
+@media (min-width: 2000px) {
+
+    .logoimg {
+        width: 140px;
+        height: 140px;
+    }
+
+    .logo h1 {
+        left: 140px;
+        top: 40px;
+        font-size: 55px;
+    }
+
+    .navig {
+        top: 40px;
+    }
+
+    .navig a {
+        font-size: 58px;
+        margin-right: 70px;
+    }
+
+    .step1 {
+        width: 550px;
+        height: 550px;
+        left: 7%;
+        top: 220px;
+    }
+
+    .back11 {
+        width: 550px;
+        height: 550px;
+    }
+
+    .poli {
+        height: 850px;
+        top: -60px;
+    }
+
+    .text {
+        top: 270px;
+        left: 43%;
+        width: 600px;
+        font-size: 60px;
+    }
+
+    .text h3 {
+        top: 110px;
+        left: 50px;
+        font-size: 38px;
+    }
+
+    button a {
+        left: 160px;
+        top: 200px;
+        font-size: 35px;
+        padding: 15px 50px;
+    }
+}
