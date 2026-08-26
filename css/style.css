@@ -274,19 +274,21 @@ a {
     }
 
     .step1 {
-        width: 240px;
+        /* left: 200px; */
+        width: 300px;
         height: 240px;
         top: 155px;
     }
 
     .back11 {
-        width: 240px;
+        width: 300px;
         height: 240px;
     }
 
     .poli {
         height: 340px;
         top: -25px;
+        left: auto;
     }
 
     .text {
