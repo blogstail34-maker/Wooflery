@@ -10,6 +10,7 @@ const fs = require('fs');
 const crypto = require('crypto');
 const rateLimit = require('express-rate-limit');
 
+
 // Load local .env settings without requiring an extra package. Existing shell
 // environment variables take precedence over values in the .env file.
 const envFile = path.join(__dirname, '.env');
@@ -26,6 +27,30 @@ if (fs.existsSync(envFile)) {
 }
 
 const app = express();
+app.use((req, res, next) => {
+  const allowedOrigin = 'https://blogstail34-maker.github.io';
+
+  if (req.headers.origin === allowedOrigin) {
+    res.setHeader('Access-Control-Allow-Origin', allowedOrigin);
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Vary', 'Origin');
+    res.setHeader(
+      'Access-Control-Allow-Methods',
+      'GET, POST, PUT, PATCH, DELETE, OPTIONS'
+    );
+    res.setHeader(
+      'Access-Control-Allow-Headers',
+      'Content-Type, Authorization'
+    );
+  }
+
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(204);
+  }
+
+  next();
+});
+
 const PORT = process.env.PORT || 3000;
 const SESSION_SECRET = process.env.SESSION_SECRET;
 // Only this configured username may publish or manage artist-gallery works.
@@ -103,10 +128,15 @@ if (db.prepare('SELECT COUNT(*) n FROM dogs').get().n === 0) {
 }
 
 app.disable('x-powered-by');
-app.use(helmet({contentSecurityPolicy:{directives:{defaultSrc:["'self'"],styleSrc:["'self'","'unsafe-inline'","https://fonts.googleapis.com"],fontSrc:["'self'","https://fonts.gstatic.com","data:"],imgSrc:["'self'","data:","https:"],scriptSrc:["'self'"],connectSrc:["'self'"]}}}));
+app.use(helmet({contentSecurityPolicy:{directives:{defaultSrc:["'self'"],styleSrc:["'self'","'unsafe-inline'","https://fonts.googleapis.com"],fontSrc:["'self'","https://fonts.gstatic.com","data:"],imgSrc:["'self'","data:","https:"],scriptSrc:["'self'"],connectSrc:["'self'","https://wooflery.onrender.com"]}}}));
 app.use(express.json({limit:'100kb'}));
 app.use(express.urlencoded({extended:false, limit:'20kb'}));
-app.use(session({store:new SQLiteStore({db:'sessions.sqlite',dir:path.join(root,'data')}),secret:SESSION_SECRET || crypto.randomBytes(48).toString('hex'),resave:false,saveUninitialized:false,cookie:{httpOnly:true,sameSite:'lax',secure:process.env.NODE_ENV==='production',maxAge:7*24*60*60*1000}}));
+app.use(session({store:new SQLiteStore({db:'sessions.sqlite',dir:path.join(root,'data')}),secret:SESSION_SECRET || crypto.randomBytes(48).toString('hex'),resave:false,saveUninitialized:false,cookie:{
+  httpOnly:true,
+  sameSite:'none',
+  secure:true,
+  maxAge:7*24*60*60*1000
+}}));
 app.use('/css', express.static(path.join(root,'css'), {fallthrough:false, maxAge:'1d'}));
 app.use('/js', express.static(path.join(root,'js'), {fallthrough:false, maxAge:'1d'}));
 app.use('/img', express.static(path.join(root,'img'), {fallthrough:false, maxAge:'7d'}));
