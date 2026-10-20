@@ -115,7 +115,7 @@ CREATE INDEX IF NOT EXISTS idx_comments_dog ON comments(dog_id, status, created_
 if (db.prepare('SELECT COUNT(*) n FROM dogs').get().n === 0) {
   const seed = [
     ['Roblox Srt','my BF','- years','Рисунок скина из роблокса','img/Pict1.jpg'],
-    ['Luna','Mixed breed','4 years','Gentle, curious, and happiest when she has a soft place to nap.','img/Pict2.jpg'],
+    ['Luna','Mixed breed','4 years','Gentle, curious, and happiest when she has a soft place to nap.','/img/Pict2.jpg'],
     ['Biscuit','Corgi','1 year','Small paws, big opinions, and an endless supply of joy.','img/Pict3.jpg'],
     ['Pepper','Border collie','3 years','A clever companion who loves games and new friends.','img/Pict4.jpg'],
     ['Coco','Poodle mix','5 years','A little elegance with a whole lot of personality.','img/Pict5.jpg'],
