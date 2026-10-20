@@ -4,7 +4,35 @@ let me = null;
 let canPublishWorks = false;
 function esc(v=''){return String(v).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
 function toast(message){const el=$('#toast');if(!el)return;el.textContent=message;el.classList.add('show');clearTimeout(toast.timer);toast.timer=setTimeout(()=>el.classList.remove('show'),3200);}
-async function api(url, options={}){const res=await fetch(url,{credentials:'same-origin',...options,headers:{...(options.body instanceof FormData?{}:{'Content-Type':'application/json'}),...(options.headers||{})}});let data={};try{data=await res.json()}catch{}if(!res.ok)throw new Error(data.error||'Something went wrong.');return data;}
+
+async function api(url, options = {}) {
+  const API_BASE = 'https://wooflery.onrender.com';
+  const fullUrl = url.startsWith('http')
+    ? url
+    : `${API_BASE}${url.startsWith('/') ? '' : '/'}${url}`;
+
+  const res = await fetch(fullUrl, {
+    credentials: 'include',
+    ...options,
+    headers: {
+      ...(options.body instanceof FormData
+        ? {}
+        : { 'Content-Type': 'application/json' }),
+      ...(options.headers || {})
+    }
+  });
+
+  let data = {};
+  try {
+    data = await res.json();
+  } catch {}
+
+  if (!res.ok) {
+    throw new Error(data.error || 'Something went wrong.');
+  }
+
+  return data;
+}
 function setMessage(form,msg,ok=false){const el=$('.form-message',form);if(el){el.textContent=msg;el.classList.toggle('success',ok);}}
 function dogCard(d){return `<article class="dog-card"><button class="dog-image" data-dog-open="${d.id}" aria-label="View ${esc(d.name)}"><img src="${esc(d.image)}" alt="${esc(d.name)}" loading="lazy"><span class="image-badge">${esc(d.breed||'Good dog')}</span></button><div class="dog-card-body"><div class="dog-title-row"><div><h3>${esc(d.name)}</h3><p>${esc(d.age||'Ageless charm')} ${d.breed?'· '+esc(d.breed):''}</p></div><button class="like-btn ${d.liked?'liked':''}" data-like="${d.id}" aria-label="${d.liked?'Unlike':'Like'} ${esc(d.name)}" title="Like">${d.liked?'♥':'♡'} <span>${d.like_count??d.likes??0}</span></button></div><p class="dog-description">${esc(d.description||'A very good dog with a very good story.')}</p><button class="card-link" data-dog-open="${d.id}">Meet ${esc(d.name)} <span>↗</span></button></div></article>`;}
 function detailModal(d,comments){let modal=$('#dog-modal');if(!modal){modal=document.createElement('div');modal.id='dog-modal';modal.className='modal hidden';modal.innerHTML='<div class="modal-backdrop" data-close-modal></div><section class="modal-panel" role="dialog" aria-modal="true" aria-label="Dog profile"><button class="modal-close" data-close-modal aria-label="Close">×</button><div id="modal-content"></div></section>';document.body.append(modal);}$('#modal-content',modal).innerHTML=`<img class="modal-dog-image" src="${esc(d.image)}" alt="${esc(d.name)}"><div class="modal-copy"><p class="eyebrow">A member of our pack</p><h2>${esc(d.name)}</h2><p class="modal-meta">${esc(d.breed||'Wonderful mix')} ${d.age?'· '+esc(d.age):''}</p><p>${esc(d.description)}</p><p class="modal-meta">Shared by ${esc(d.owner_name||d.owner_username||'a Wooflery member')} · ♥ ${d.like_count}</p><button class="btn primary" data-like="${d.id}">${d.liked?'♥ Loved':'♡ Give some love'} (${d.like_count})</button><h3 class="comments-heading">A little love in the comments</h3><div class="comments-list">${comments.length?comments.map(c=>`<div class="comment"><strong>${esc(c.display_name||c.username)}</strong><p>${esc(c.content)}</p><small>${esc(c.created_at)}</small></div>`).join(''):'<p class="empty-copy">No comments yet. Be the first to leave a kind note.</p>'}</div>${me?`<form id="comment-form" data-dog-id="${d.id}" class="comment-form"><textarea name="content" rows="3" maxlength="1000" required placeholder="Leave a kind comment…"></textarea><button class="btn primary" type="submit">Post comment ↗</button></form>`:'<p class="fine-print"><a href="Join.html">Sign in</a> to leave a comment or give some love.</p>'}<button class="report-link" data-report-dog="${d.id}">Report this profile</button></div>`;modal.classList.remove('hidden');document.body.classList.add('modal-open');}
