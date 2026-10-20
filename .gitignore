@@ -1,0 +1,43 @@
+# Secrets and environment variables
+.env
+.env.*
+.env.example
+
+# Node.js dependencies
+node_modules/
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+
+# Local database and user data
+data/
+*.sqlite
+*.sqlite3
+*.db
+
+# Uploaded user content (ignore files, keep folder)
+uploads/*
+!uploads/.gitkeep
+
+# Operating system files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor and IDE files
+.vscode/
+.idea/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
+
+# Test and coverage output
+coverage/
+.nyc_output/

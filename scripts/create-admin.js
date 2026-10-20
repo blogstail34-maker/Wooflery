@@ -1,0 +1,8 @@
+const Database = require('better-sqlite3');
+const bcrypt = require('bcryptjs');
+const readline = require('readline');
+const path = require('path');
+const db = new Database(path.join(__dirname,'..','data','wooflery.sqlite'));
+const rl=readline.createInterface({input:process.stdin,output:process.stdout});
+function ask(q){return new Promise(resolve=>rl.question(q,resolve));}
+(async()=>{try{const username=(await ask('Admin username (3-24 letters, numbers, underscore): ')).trim();const email=(await ask('Admin email: ')).trim();const display=(await ask('Display name: ')).trim()||username;const password=await ask('Password (at least 12 characters): ');if(!/^[a-zA-Z0-9_]{3,24}$/.test(username))throw new Error('Invalid username.');if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))throw new Error('Invalid email.');if(password.length<12)throw new Error('Password must contain at least 12 characters.');const hash=await bcrypt.hash(password,12);const existing=db.prepare('SELECT id,role FROM users WHERE username=? COLLATE NOCASE OR email=? COLLATE NOCASE').get(username,email);if(existing){if(existing.role==='admin')throw new Error('An account with this username/email is already an administrator.');throw new Error('An account with this username/email already exists. Create a different admin identity.');}db.prepare("INSERT INTO users(username,email,password_hash,display_name,role) VALUES(?,?,?,?, 'admin')").run(username,email,hash,display);console.log(`Administrator ${username} created. Keep these credentials private.`);}catch(e){console.error('Could not create administrator:',e.message);process.exitCode=1;}finally{rl.close();db.close();}})();
