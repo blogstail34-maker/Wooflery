@@ -89,12 +89,12 @@ CREATE INDEX IF NOT EXISTS idx_comments_dog ON comments(dog_id, status, created_
 // Seed sample dogs only once, retaining the original artwork and visual identity.
 if (db.prepare('SELECT COUNT(*) n FROM dogs').get().n === 0) {
   const seed = [
-    ['Roblox Srt','my BF','- years','Рисунок скина из роблокса','/img/Pict1.jpg'],
-    ['Luna','Mixed breed','4 years','Gentle, curious, and happiest when she has a soft place to nap.','/img/Pict2.jpg'],
-    ['Biscuit','Corgi','1 year','Small paws, big opinions, and an endless supply of joy.','/img/Pict3.jpg'],
-    ['Pepper','Border collie','3 years','A clever companion who loves games and new friends.','/img/Pict4.jpg'],
-    ['Coco','Poodle mix','5 years','A little elegance with a whole lot of personality.','/img/Pict5.jpg'],
-    ['Scout','Beagle','8 months','Professional sniff-explorer and amateur cuddle expert.','/img/Pict6.jpg']
+    ['Roblox Srt','my BF','- years','Рисунок скина из роблокса','img/Pict1.jpg'],
+    ['Luna','Mixed breed','4 years','Gentle, curious, and happiest when she has a soft place to nap.','img/Pict2.jpg'],
+    ['Biscuit','Corgi','1 year','Small paws, big opinions, and an endless supply of joy.','img/Pict3.jpg'],
+    ['Pepper','Border collie','3 years','A clever companion who loves games and new friends.','img/Pict4.jpg'],
+    ['Coco','Poodle mix','5 years','A little elegance with a whole lot of personality.','img/Pict5.jpg'],
+    ['Scout','Beagle','8 months','Professional sniff-explorer and amateur cuddle expert.','img/Pict6.jpg']
   ];
   const ins = db.prepare("INSERT INTO dogs(owner_id,name,breed,age,description,image) VALUES(1,?,?,?,?,?)");
   // A demo owner is created with a random password and cannot be used to log in.
